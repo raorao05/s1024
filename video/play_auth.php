@@ -5,7 +5,8 @@ header("Content-type: text/html; charset=utf-8");
 
 //获取必要的参数
 $pid = isset($_REQUEST['pid']) ? $_REQUEST['pid'] : false; //文章id
-if(!$pid){
+if(!$pid)
+{
     $response = array(
         'err' => 1,
         'status' => '0000',
@@ -13,7 +14,9 @@ if(!$pid){
     );
     echo json_encode($response);
     exit;
-}else{
+}
+else
+{
     $pid = trim($pid);
 }
 
@@ -22,12 +25,12 @@ if(!$pid){
 $db = mysqli_connect(DB_HOST,DB_USER,DB_PASSWORD,DB_NAME);
 $user_info = isset($_SESSION['user_info']) ? $_SESSION['user_info'] : false;
 
-if($user_info) {
-
-
+if($user_info)
+{
     $user_info = unserialize(serialize($user_info));
     $user_info = json_decode(json_encode($user_info),true);
-    if(isset($user_info['errors'])){
+    if(isset($user_info['errors']))
+    {
         need_login();
     }
 
@@ -38,7 +41,8 @@ if($user_info) {
     $is_vip = false;
     $sql = "SELECT * FROM wp_order WHERE uid={$user_id} AND product='vip' AND status='finish'";
     $result = $db->query($sql);
-    if ($result && $result->num_rows > 0) {
+    if ($result && $result->num_rows > 0)
+    {
         $is_vip = true;
         /*
         while ($row = $result->fetch_array()) {
@@ -50,15 +54,19 @@ if($user_info) {
         }
         */
     }
-    if ($is_vip) {
+    if ($is_vip)
+    {
         allow();
-    } else {
+    }
+    else
+    {
         //查询用户是否单点购买了产品
         $is_single = false;
         $pid = addslashes($pid);
         $sql = "SELECT * FROM wp_order WHERE uid={$user_id} AND pid={$pid} AND status='finish' AND product = 'vod'";
         $result = $db->query($sql);
-        if ($result && $result->num_rows > 0) {
+        if ($result && $result->num_rows > 0)
+        {
             $is_single = true;
             /*
             while ($row = $result->fetch_array()) {
@@ -70,13 +78,18 @@ if($user_info) {
             }
             */
         }
-        if ($is_single) {
+        if ($is_single)
+        {
             allow();
-        }else{
+        }
+        else
+        {
             shikan();
         }
     }
-}else{
+}
+else
+{
     need_login();
 
 }
@@ -84,7 +97,8 @@ if($user_info) {
 
 
 //返回试看结果
-function shikan(){
+function shikan()
+{
     //获取视频的试看地址
 //    global $pid,$db;
 //    $pid = addslashes($pid);
@@ -119,7 +133,8 @@ function shikan(){
             //'video_url' => $video_info['video_url'],
             //'video_url' => 'http://tj.btfs.ftn.apiv.ga/ftn_handler/29b69bd86adf2a6c271e73446dd8e29f3b0e86bb3ebbd5d96f574e2847ac346e86542096315851fc66b99e14236eeffcc5f866190da2b969ce75f63cedb1f2e4/apiv.ga.mkv',
             //'video_url' => 'http://e.t9k.space//mp43/182040.mp4?st=-j47i1Mvw06vTa8BXIVCLA&e=1476418050',
-            'video_url' => '/video/video/2.MP4',
+            //'video_url' => '/video/video/2.MP4',
+            'video_url' => $video_info['url'],
             'video_title' => $video_info['title']
         )
     );
@@ -132,7 +147,8 @@ function shikan(){
 
 
 //返回正式结果
-function allow(){
+function allow()
+{
    $video_info = get_video_info();
     $response = array(
         'err' => 0,
@@ -147,7 +163,8 @@ function allow(){
     exit;
 }
 
-function need_login(){
+function need_login()
+{
     $response = array(
         'err' => 1,
         'status' => '0001',
@@ -159,17 +176,22 @@ function need_login(){
 
 
 //获取视频信息
-function get_video_info(){
+function get_video_info()
+{
     //获取视频的正式地址
     global $pid,$db;
     $pid = addslashes($pid);
     $sql = "SELECT * FROM wp_postmeta WHERE post_id='{$pid}' AND meta_key='play_url'";
     $result = $db->query($sql);
-    if ($result && $result->num_rows > 0) {
-        while ($row = $result->fetch_array()) {
+    if ($result && $result->num_rows > 0)
+    {
+        while ($row = $result->fetch_array())
+        {
             $video_url = $row['meta_value'];
         }
-    }else{
+    }
+    else
+    {
         $video_url = 'http://tj.btfs.ftn.apiv.ga/ftn_handler/29b69bd86adf2a6c271e73446dd8e29f3b0e86bb3ebbd5d96f574e2847ac346e86542096315851fc66b99e14236eeffcc5f866190da2b969ce75f63cedb1f2e4/apiv.ga.mkv';
     }
 
@@ -177,8 +199,10 @@ function get_video_info(){
     $pid = addslashes($pid);
     $sql = "SELECT post_title FROM wp_posts WHERE  id='{$pid}'";
     $result = $db->query($sql);
-    if ($result && $result->num_rows > 0) {
-        while ($row = $result->fetch_array()) {
+    if ($result && $result->num_rows > 0)
+    {
+        while ($row = $result->fetch_array())
+        {
             $title = $row['post_title'];
         }
     }

@@ -1,0 +1,42 @@
+body {
+    background-color:#100F19;
+}
+
+.apiv-overlay {
+    position: absolute;
+    pointer-events: none;
+    text-align: center;
+    top: 18%;
+    left: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    /*background-color: rgba(250,252,255,0.95);*/
+    background-color: wheat;
+    color: #757A7D;
+    font-family: Lato,Helvetica Neue,Helvetica,Arial,sans-serif;
+    -webkit-transition: opacity 0.2s;
+    transition: opacity 0.2s;
+    box-sizing: border-box;
+}
+
+.apiv-hero {
+    margin: 2% 1%;
+}
+
+.apiv-hero a,.apiv-hero span,.apiv-hero img,.apiv-hero canvas {
+    pointer-events: auto;
+    display: block;
+    margin: 0 auto;
+    vertical-align: middle;
+    margin-top: 3px;
+}
+
+.apiv-hero img {
+    width: 20%;
+}
+
+.neno {
+    display: none;
+    opacity: 0;
+}

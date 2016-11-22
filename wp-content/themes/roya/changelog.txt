@@ -1,0 +1,93 @@
+
+/* ==================================
+	Roya Changelog
+================================== */
+
+24 Mar 2013 - Version 1.2.1
+	
+	* style.css - updated version number, upadated and added style
+	
+	* jquery.sly.css - added to css folder
+	
+	* images Folder - got updated
+	
+	* js Folder - added jquery.sly.min.js & jquery.hoverIntent.js
+
+	* scripts - updated and added new functionality for left header scroll
+		|-- main-script.js
+		|-- portfolio-script.js
+		
+	* functions.php - added new scripts and styles
+	
+	* header.php - updated
+
+
+8 Feb 2013 - Version 1.2
+	
+	* style.css - updated version number, added new colors
+	
+	* flexslider.css - added new colors
+	
+	* flexslider.css - added new colors
+	
+	* images Folder - updated
+	
+	* scripts - fixed firefox hover issue
+		|-- main-script.js
+		|-- portfolio-script.js
+		
+	* taxonomy-portfolio-category.php - fixed category listing
+	
+	* functions.php - added new colors
+	
+	* header.php - fixed a minor bug
+	
+	
+10 Jan 2013 - Version 1.1.1
+	
+	* style.css - updated version number, fixed some coloring issue
+	
+	* js Folder - added jquery.fitvids.min.js
+	
+	* functions.php - added fitvid.js
+	
+	* scripts - fitvid functionality added, fixed lightbox issue with videos
+		|-- main-script.js
+		|-- portfolio-script.js
+		|-- portfolio-ajax-handler.js
+	
+	* portfolio-ajax-handler.php - fixed lightbox issue with videos
+	
+
+07 Jan 2013 - Version 1.1
+	
+	* Documentation - updated
+	
+	* images Folder - got updated
+	
+	* portfolio.php - added better image resizing
+	
+	* theme-options.php - social sharing buttons setting added
+	
+	* functions.php - added some new functionality
+	
+	* WordPress Template Files - added logic for applying new page options, fixed minor issues
+		|-- single.php
+		|-- single-portfolio.php
+		|-- page.php
+		|-- template-blog.php
+		|--	template-portfolio.php
+		|-- template-contact.php
+	
+	* scripts - added some new functionality, fixed minor bugs
+		|-- main-script.js
+		|-- portfolio-script.js
+		|-- portfolio-ajax-handler.js
+		
+	* flexslider.css - fixed bugs related to mobile screens
+	
+	* style.css - updated version number, fixed bugs related to mobile screens and light boxes
+
+31 Dec 2012 - Version 1.0
+
+	First Release

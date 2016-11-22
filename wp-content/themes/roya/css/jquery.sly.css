@@ -1,0 +1,78 @@
+#scrollbar {
+	background: #1B0B12;
+	opacity: 0.8;
+	line-height: 0;
+	width: 8px;
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100%;
+	display: none;
+	z-index: 1000;
+}
+#scrollbar .handle { 
+	background: #5F0527;
+	cursor: pointer;
+	line-height: 0;
+	width: 100%;
+	
+}
+#frame {
+	position: relative;
+	height: 100%;
+	padding-left: 80px;
+}
+.slidee {
+	float: left;
+	position: relative;
+}
+
+body.brown #scrollbar {
+	background: #2D2A2E;
+}
+body.brown #scrollbar .handle  {
+	background: #7C3C26;
+}
+
+body.cyan #scrollbar {
+	background: #0E3B39;
+}
+body.cyan #scrollbar .handle  {
+	background: #1F8181;
+}
+
+body.black #scrollbar {
+	background: #2D2A2E;
+}
+body.black #scrollbar .handle  {
+	background: #5F5F5F;
+}
+
+body.green #scrollbar {
+	background: #1A3B2A;
+}
+body.green #scrollbar .handle  {
+	background: #1D5C3A;
+}
+
+body.blue #scrollbar {
+	background: #070E42;
+}
+body.blue #scrollbar .handle  {
+	background: #0B4484;
+}
+
+body.red #scrollbar {
+	background: #2D2A2E;
+}
+body.red #scrollbar .handle  {
+	background: #731818;
+}
+
+body.orange #scrollbar {
+	background: #664939;
+}
+body.orange #scrollbar .handle  {
+	background: #B26B2F;
+}
+

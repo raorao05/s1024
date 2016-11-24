@@ -5,6 +5,42 @@
 */
 
 
+
+//function my_login_redirect($redirect_to, $request, $user)
+//{
+//    if($redirect_to)
+//    {
+//        return $redirect_to;
+//    }
+//    else
+//    {
+//        return home_url();
+//        /*
+//        if (is_array($user->roles))
+//        {
+//            // 检查用户的角色
+//            if (in_array("administrator", $user->roles))
+//            {
+//                // 跳转到管理员用户界面
+//                return $redirect_to;
+//            } else {
+//                // 跳转到其他用户界面
+//                return home_url();
+//            }
+//        }
+//        */
+//    }
+//}
+//add_filter("login_redirect", "my_login_redirect", 10, 3);
+
+function my_login_redirect($redirect_to, $request){
+    if( empty( $redirect_to ) || $redirect_to == 'wp-admin/' || $redirect_to == admin_url() )
+        return home_url();
+    else
+        return $redirect_to;
+}
+add_filter("login_redirect", "my_login_redirect", 10, 3);
+
 /**
 * Set the content width based on the theme's design and stylesheet.
 */

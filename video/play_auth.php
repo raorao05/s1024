@@ -1,5 +1,6 @@
 <?php
 
+include_once('ganon.php');
 include_once('../wp-config.php');
 header("Content-type: text/html; charset=utf-8");
 
@@ -23,6 +24,7 @@ else
 
 //获取登录状态
 $db = mysqli_connect(DB_HOST,DB_USER,DB_PASSWORD,DB_NAME);
+$db->query("SET NAMES utf8");
 $user_info = isset($_SESSION['user_info']) ? $_SESSION['user_info'] : false;
 
 if($user_info)
@@ -181,33 +183,100 @@ function get_video_info()
     //获取视频的正式地址
     global $pid,$db;
     $pid = addslashes($pid);
-    $sql = "SELECT * FROM wp_postmeta WHERE post_id='{$pid}' AND meta_key='play_url'";
+    $sql = "SELECT meta_value FROM wp_postmeta WHERE post_id='{$pid}' AND meta_key='play_info'";
     $result = $db->query($sql);
     if ($result && $result->num_rows > 0)
     {
         while ($row = $result->fetch_array())
         {
-            $video_url = $row['meta_value'];
+            $video_info = $row['meta_value'];
+            $video_info = json_decode($video_info,true);
         }
     }
     else
     {
-        $video_url = 'http://tj.btfs.ftn.apiv.ga/ftn_handler/29b69bd86adf2a6c271e73446dd8e29f3b0e86bb3ebbd5d96f574e2847ac346e86542096315851fc66b99e14236eeffcc5f866190da2b969ce75f63cedb1f2e4/apiv.ga.mkv';
+        $video_info = array(
+            'source' => 'apiv.ga',
+            'code' => '3b88883cfa4f39622ad0964ab87d4ef7bf99c8f0',
+            'marget' => 'magnet:?xt=urn:btih:3b88883cfa4f39622ad0964ab87d4ef7bf99c8f0',
+            'url' => 'http://tj.btfs.ftn.apiv.ga/ftn_handler/29b69bd86adf2a6c271e73446dd8e29f3b0e86bb3ebbd5d96f574e2847ac346e86542096315851fc66b99e14236eeffcc5f866190da2b969ce75f63cedb1f2e4/apiv.ga.mkv'
+        );
+    }
+
+    //暂时只抓取 一家的播放串
+    if($video_info['source'] == 'apiv.ga')
+    {
+        if(isset($video_info['url']) && $video_info['url'])
+        {
+            if(isset($video_info['expire']) && $video_info['expire'])
+            {
+                $time = time() - $video_info['expire'];
+                if($time > 0)
+                {
+                    $video_info = get_play_url_from_remote($video_info);
+                }
+            }
+            else
+            {
+                $video_info = get_play_url_from_remote($video_info);
+            }
+        }
+        else
+        {
+            $video_info = get_play_url_from_remote($video_info);
+
+        }
+
     }
 
     $title = '';
     $pid = addslashes($pid);
-    $sql = "SELECT post_title FROM wp_posts WHERE  id='{$pid}'";
+    $sql = "SELECT * FROM wp_posts WHERE  id='{$pid}'";
     $result = $db->query($sql);
     if ($result && $result->num_rows > 0)
     {
         while ($row = $result->fetch_array())
         {
+            //print_r($row);
             $title = $row['post_title'];
         }
     }
+
+
     return array(
-        'url' => $video_url,
-        'title' => $title
+        'title' => $title,
+        'url' => $video_info['url'],
+        'marget' => $video_info['marget']
     );
+}
+
+
+/**
+ * 获取远端的播放串
+ * @return mixed
+ */
+function get_play_url_from_remote($video_info)
+{
+    //echo 1;return;
+    $video_info['url'] = '';
+    if($video_info['source'] == 'apiv.ga')
+    {
+        $remote_url = 'http://apiv.ga/magnet/' . $video_info['code'];
+        for ($i = 0; $i < 3; $i++) {
+            $html = file_get_dom($remote_url);
+            foreach ($html('a[id="logo"]') as $element) {
+                $video_info['url'] = $element->href;
+                break;
+            }
+        }
+        if ($video_info['url']) {
+            global $pid, $db;
+            $pid = addslashes($pid);
+            $video_info['expire'] = time() + 60 * 60;
+            $value = json_encode($video_info);
+            $sql = "UPDATE wp_postmeta SET meta_value = '{$value}' WHERE post_id='{$pid}' AND meta_key='play_info'";
+            $db->query($sql);
+        }
+    }
+    return $video_info;
 }

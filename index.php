@@ -13,6 +13,7 @@
  */
 
 define('WP_USE_THEMES', true);
+set_time_limit(45);
 
 /** Loads the WordPress Environment and Template */
 require( dirname( __FILE__ ) . '/wp-blog-header.php' );

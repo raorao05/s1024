@@ -33,6 +33,16 @@
 //}
 //add_filter("login_redirect", "my_login_redirect", 10, 3);
 
+//禁用页面的评论功能
+function disable_page_comments( $posts ) {
+	if ( is_page()) {
+		$posts[0]->comment_status = 'disabled';
+		$posts[0]->ping_status = 'disabled';
+	}
+	return $posts;
+}
+add_filter( 'the_posts', 'disable_page_comments' );
+
 function my_login_redirect($redirect_to, $request){
     if( empty( $redirect_to ) || $redirect_to == 'wp-admin/' || $redirect_to == admin_url() )
         return home_url();

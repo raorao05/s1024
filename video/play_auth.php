@@ -22,11 +22,14 @@ else
 }
 
 
+
 //获取登录状态
 $db = mysqli_connect(DB_HOST,DB_USER,DB_PASSWORD,DB_NAME);
 $db->query("SET NAMES utf8");
-$user_info = isset($_SESSION['user_info']) ? $_SESSION['user_info'] : false;
 
+
+/*
+$user_info = isset($_SESSION['user_info']) ? $_SESSION['user_info'] : false;
 if($user_info)
 {
     $user_info = unserialize(serialize($user_info));
@@ -54,7 +57,7 @@ if($user_info)
                 $is_vip = true;
             }
         }
-        */
+
     }
     if ($is_vip)
     {
@@ -78,7 +81,7 @@ if($user_info)
                     break;
                 }
             }
-            */
+
         }
         if ($is_single)
         {
@@ -95,47 +98,20 @@ else
     need_login();
 
 }
+*/
 
 
+shikan();
 
 //返回试看结果
 function shikan()
 {
-    //获取视频的试看地址
-//    global $pid,$db;
-//    $pid = addslashes($pid);
-//    $sql = "SELECT * FROM wp_postmeta WHERE post_id='{$pid}' AND meta_key='sk_url'";
-//
-//    $result = $db->query($sql);
-//    if ($result && $result->num_rows > 0) {
-//        while ($row = $result->fetch_array()) {
-//            $video_url = $row['meta_value'];
-//        }
-//    }else{
-//        //$video_url = '/video/video/1.MP4';
-//
-//        //$video_url = 'http://xfcd.ctfs.ftn.apiv.ga/ftn_handler/75375a447ba6eb182930f5a4106782d432239d0325919da840547fd677fe9df65991e2ad1fcc418fe1013b49693cc3fe3ddf81e222f7452db0cbf0a989b0a2cd/apiv.ga.mp4';
-//        //$video_url = 'http://xfcd.ctfs.ftn.apiv.ga/ftn_handler/0dcaf9d15e038c5340d42e61456cea919018dbbf73b41f63e52fb284a856adcf7391b828f013f26eaa0d0b7089b7a60eb18ee6fe29f793d289a17a7c43247314/apiv.ga.mp4';
-//        $video_url = 'http://xfcd.ctfs.ftn.cilibobo.cc/ftn_handler/a5bb3ab9614e4f779b778225ff05c5a8d9b228d60c76ddd95444bfd9d8b5be546770189056d3cfaa6e5e99ed3c177e90cd2970cdc49cb60a7613a6208ed087a4/C79C0203392D78ACC5C5D1B1E0DBB1890AA62564.mp4';
-//    }
-//
-//
-//    $video_url = 'http://tj.btfs.ftn.apiv.ga/ftn_handler/cd6aeb2fe2226bd40e9d71ea9ef6b14cf7cd939c1804e042da22eb8b2d5fe1ccd302573ed4d462ae76cefe3832aa43c816a7f528592412bfcc63be84282b72a3/apiv.ga.mkv';
-//    //$video_url = 'http://sz.ctfs.ftn.apiv.ga/ftn_handler/31419658eef5274a7215627b9a7d164d63d58c484aedb61048422c5ea4aa2377996728236cb845d2466101bddb3814aadeacaadf26e74e8cb8d19a7200a86563/apiv.ga.mkv';
-//    //http://apiv.ga/magnet/3b88883cfa4f39622ad0964ab87d4ef7bf99c8f0
-//    //$video_url = 'http://xfcd.ctfs.ftn.apiv.ga/ftn_handler/35ee55d7767360f7c5a599d586e6dfac6b0246dbebf1efc9b1e3864fc3b3896cf4011ee144fd4daf952e87e4de2cf61b0d3cb37ff50d5b210bad1b47bbd5c81b/apiv.ga.mkv';
-//    //$video_url = '/video/video/2.mp4';
-//    $title = get_title();
     $video_info = get_video_info();
     $response = array(
         'err' => 0,
         'status' => '0000',
         'msg' => array(
             'pass' => 0,
-            //'video_url' => $video_info['video_url'],
-            //'video_url' => 'http://tj.btfs.ftn.apiv.ga/ftn_handler/29b69bd86adf2a6c271e73446dd8e29f3b0e86bb3ebbd5d96f574e2847ac346e86542096315851fc66b99e14236eeffcc5f866190da2b969ce75f63cedb1f2e4/apiv.ga.mkv',
-            //'video_url' => 'http://e.t9k.space//mp43/182040.mp4?st=-j47i1Mvw06vTa8BXIVCLA&e=1476418050',
-            //'video_url' => '/video/video/2.MP4',
             'video_url' => $video_info['url'],
             'video_title' => $video_info['title']
         )
@@ -184,6 +160,7 @@ function get_video_info()
     global $pid,$db;
     $pid = addslashes($pid);
     $sql = "SELECT meta_value FROM wp_postmeta WHERE post_id='{$pid}' AND meta_key='play_info'";
+
     $result = $db->query($sql);
     if ($result && $result->num_rows > 0)
     {
@@ -262,17 +239,19 @@ function get_play_url_from_remote($video_info)
     if($video_info['source'] == 'apiv.ga')
     {
         $remote_url = 'http://apiv.ga/magnet/' . $video_info['code'];
-        for ($i = 0; $i < 3; $i++) {
-            $html = file_get_dom($remote_url);
-            foreach ($html('a[id="logo"]') as $element) {
-                $video_info['url'] = $element->href;
-                break;
-            }
-        }
+        //die($remote_url);
+        $video_info['url'] = 'http://sex.com:82/video/video/2.mp4';
+//        for ($i = 0; $i < 3; $i++) {
+//            $html = file_get_dom($remote_url);
+//            foreach ($html('a[id="logo"]') as $element) {
+//                $video_info['url'] = $element->href;
+//                break;
+//            }
+//        }
         if ($video_info['url']) {
             global $pid, $db;
             $pid = addslashes($pid);
-            $video_info['expire'] = time() + 60 * 60;
+            $video_info['expire'] = time() + 10 * 60 * 60; //缓存10个小时
             $value = json_encode($video_info);
             $sql = "UPDATE wp_postmeta SET meta_value = '{$value}' WHERE post_id='{$pid}' AND meta_key='play_info'";
             $db->query($sql);

@@ -239,15 +239,14 @@ function get_play_url_from_remote($video_info)
     if($video_info['source'] == 'apiv.ga')
     {
         $remote_url = 'http://apiv.ga/magnet/' . $video_info['code'];
-        //die($remote_url);
-        $video_info['url'] = 'http://sex.com:82/video/video/2.mp4';
-//        for ($i = 0; $i < 3; $i++) {
-//            $html = file_get_dom($remote_url);
-//            foreach ($html('a[id="logo"]') as $element) {
-//                $video_info['url'] = $element->href;
-//                break;
-//            }
-//        }
+        //$video_info['url'] = 'http://sex.com:82/video/video/2.mp4';
+        for ($i = 0; $i < 3; $i++) {
+            $html = file_get_dom($remote_url);
+            foreach ($html('a[id="logo"]') as $element) {
+                $video_info['url'] = $element->href;
+                break;
+            }
+        }
         if ($video_info['url']) {
             global $pid, $db;
             $pid = addslashes($pid);

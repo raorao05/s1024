@@ -175,7 +175,7 @@ function get_video_info()
         $video_info = array(
             'source' => 'apiv.ga',
             'code' => '3b88883cfa4f39622ad0964ab87d4ef7bf99c8f0',
-            'marget' => 'magnet:?xt=urn:btih:3b88883cfa4f39622ad0964ab87d4ef7bf99c8f0',
+            'magnet' => 'magnet:?xt=urn:btih:3b88883cfa4f39622ad0964ab87d4ef7bf99c8f0',
             'url' => 'http://tj.btfs.ftn.apiv.ga/ftn_handler/29b69bd86adf2a6c271e73446dd8e29f3b0e86bb3ebbd5d96f574e2847ac346e86542096315851fc66b99e14236eeffcc5f866190da2b969ce75f63cedb1f2e4/apiv.ga.mkv'
         );
     }
@@ -214,7 +214,6 @@ function get_video_info()
     {
         while ($row = $result->fetch_array())
         {
-            //print_r($row);
             $title = $row['post_title'];
         }
     }
@@ -223,7 +222,7 @@ function get_video_info()
     return array(
         'title' => $title,
         'url' => $video_info['url'],
-        'marget' => $video_info['marget']
+        'magnet' => $video_info['marget']
     );
 }
 
@@ -234,20 +233,20 @@ function get_video_info()
  */
 function get_play_url_from_remote($video_info)
 {
-    //echo 1;return;
     $video_info['url'] = '';
     if($video_info['source'] == 'apiv.ga')
     {
         $remote_url = 'http://apiv.ga/magnet/' . $video_info['code'];
-        //$video_info['url'] = 'http://sex.com:82/video/video/2.mp4';
-        for ($i = 0; $i < 3; $i++) {
+        for ($i = 0; $i < 3; $i++)
+        {
             $html = file_get_dom($remote_url);
             foreach ($html('a[id="logo"]') as $element) {
                 $video_info['url'] = $element->href;
                 break;
             }
         }
-        if ($video_info['url']) {
+        if ($video_info['url'])
+        {
             global $pid, $db;
             $pid = addslashes($pid);
             $video_info['expire'] = time() + 10 * 60 * 60; //缓存10个小时

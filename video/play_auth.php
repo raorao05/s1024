@@ -181,7 +181,7 @@ function get_video_info()
         );
     }
 
-    //暂时只抓取 一家的播放串
+    //apiv.ga的源
     if($video_info['source'] == 'apiv.ga')
     {
         if(isset($video_info['url']) && $video_info['url'])
@@ -205,6 +205,10 @@ function get_video_info()
 
         }
 
+    }
+    else if($video_info['source'] == '91porn.com')
+    {
+        $video_info['magnet'] = $video_info['url'];
     }
 
     $title = '';

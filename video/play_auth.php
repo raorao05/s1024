@@ -241,10 +241,14 @@ function get_play_url_from_remote($video_info)
         for ($i = 0; $i < 3; $i++)
         {
             $html = file_get_dom($remote_url);
-            foreach ($html('a[id="logo"]') as $element) {
-                $video_info['url'] = $element->href;
-                break;
+            if($html)
+            {
+                foreach ($html('a[id="logo"]') as $element) {
+                    $video_info['url'] = $element->href;
+                    break;
+                }
             }
+
         }
         if ($video_info['url'])
         {

@@ -223,7 +223,7 @@ function get_video_info()
     return array(
         'title' => $title,
         'url' => $video_info['url'],
-        'magnet' => $video_info['marget']
+        'magnet' => $video_info['magnet']
     );
 }
 

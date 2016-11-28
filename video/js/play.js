@@ -19,6 +19,7 @@ $(function(){
             var video_url = auth_result['msg']['video_url'];
             if(video_url) {
                 $(document).attr('title',auth_result['msg']['video_title']);
+                $('#video_name').html(auth_result['msg']['video_title']);
                 var options = {
                     "techOrder": ["html5", "flash"],
                     "playbackRates": [2, 1.5, 1.25, 1, 0.5]
@@ -59,6 +60,7 @@ $(function(){
 //                     },159)
                     });
                     $("body").one("click", function () {
+                        //a.pause();
                         //alert('xx');
                         //a.el().appendChild(doc.querySelector("#logo"));
                     });
@@ -126,7 +128,7 @@ $(function(){
                                 //$('.apiv-overlay neno').show();
                             }else{
                                 o.addClass('neno');
-                                a.play();
+                                //a.play();
                             }
 
                         });
@@ -162,7 +164,10 @@ $(function(){
                     }
                 })
 
-                $('#shikan').show();
+                setTimeout(function(){
+                    $('#shikan').show();
+                    $('#preload').hide();
+                },9000);
             }else {
                 $("body").css("background-color",'white');
                 $('#shikan').hide();

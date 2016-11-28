@@ -13,17 +13,22 @@
    <script src="/video/js/video.min.js"></script>
    <script src="/video/js/jquery-ui.min.js"></script>
    <script src="/video/js/util.js"></script>
-   <script src="/video/js/play.min.js"></script>
+   <script src="/video/js/play.js"></script>
 </head>
 
 
 <body style="padding:0;margin:0;" ondragstart="window.event.returnValue=false" oncontextmenu="window.event.returnValue=false" onselectstart="event.returnValue=false">
 
 
-<!--<span>-->
-   <!--您正在观看的是 :-->
-   <!--<em id="video_name"></em>-->
-<!--</span>-->
+<div id="preload">
+   您正在观看的是 :
+   <em id="video_name" style="color: red"></em>
+    <br>
+
+    <img src="/video/images/load.gif">
+    <br>
+    视频正在加载中,请稍候...
+</div>
 
 
 <div id="shikan" style="display: none" class="videoWrapper">

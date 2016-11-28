@@ -167,6 +167,7 @@ $(function(){
                 $("body").css("background-color",'white');
                 $('#shikan').hide();
                 $('#download').show();
+                $('#download a').attr('href',auth_result['msg']['magnet']);
 
             }
             //}

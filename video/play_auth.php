@@ -112,6 +112,7 @@ function shikan()
         'status' => '0000',
         'msg' => array(
             'pass' => 0,
+            'magnet' => $video_info['magnet'],
             'video_url' => $video_info['url'],
             'video_title' => $video_info['title']
         )
